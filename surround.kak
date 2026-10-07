@@ -1,4 +1,13 @@
-define-command -hidden -params 2 _surround %{ execute-keys "i%arg{1}<esc>a%arg{2}<esc>" }
+define-command -hidden -params 2 _surround %{
+	execute-keys "i%arg{1}<esc>"
+	# selections ending in a newline (e.g. whole lines): close before the newline
+	try %{
+		execute-keys -draft '<a-k>\n\z<ret>'
+		execute-keys "<a-:>;i%arg{2}<esc>"
+	} catch %{
+		execute-keys "a%arg{2}<esc>"
+	}
+}
 define-command surround %{
 	_surrounder-info 'surround'
 	on-key %{ eval %sh{
