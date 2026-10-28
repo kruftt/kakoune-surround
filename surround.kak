@@ -3,7 +3,7 @@ define-command -hidden -params 2 _surround %{
 	# selections ending in a newline (e.g. whole lines): close before the newline
 	try %{
 		execute-keys -draft '<a-k>\n\z<ret>'
-		execute-keys "<a-:>;i%arg{2}<esc>"
+		execute-keys "<a-:>;i%arg{2}<esc>h"
 	} catch %{
 		execute-keys "a%arg{2}<esc>"
 	}
