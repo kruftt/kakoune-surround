@@ -121,15 +121,15 @@ define-command -hidden _change-surrounding-pair -params 1 %{ eval %sh{
 	echo '_select-surrounding-pair %arg{1}'
 	# echo "_surrounder-info 'change surround'"
 	echo _change-surround-info
-	echo "on-key %{
+	echo 'on-key %{
 		select $selections
 		evaluate-commands -itersel %{
-			_select-surrounding-pair %arg{1}
+			execute-keys "<a-a>%arg{1}"
 			_impl-surround _change-surround %val{key}
 		}
-	}"
+	}'
 }}
-define-command -hidden -params 2 _change-surround %{ execute-keys "r%arg{1}<space>r%arg{2}" }
+define-command -hidden -params 2 _change-surround %{ execute-keys "i<del>%arg{1}<esc>a<backspace>%arg{2}<esc>" }
 
 #use evaluate-commands to collapse undo history
 define-command surround-with-tag %{ evaluate-commands %{
